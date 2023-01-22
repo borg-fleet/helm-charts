@@ -1,0 +1,36 @@
+apiVersion: v1
+entries:
+  borg-fleet:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-01-22T12:07:05.222282428Z"
+    description: A Helm chart for Kubernetes
+    digest: 3ac002c02257fdffef45cc4e582570a457138f0f7751081509bd49482c200d34
+    name: borg-fleet
+    type: application
+    urls:
+    - https://github.com/borg-fleet/helm-charts/releases/download/borg-fleet-0.1.0/borg-fleet-0.1.0.tgz
+    version: 0.1.0
+  borg-server:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-01-22T12:07:05.385016569Z"
+    description: A Helm chart for Kubernetes
+    digest: 1712ebd48a668134d0d5371e681d05408892b5dc751c8778e55d9e32a1eb0b29
+    name: borg-server
+    type: application
+    urls:
+    - https://github.com/borg-fleet/helm-charts/releases/download/borg-server-0.1.0/borg-server-0.1.0.tgz
+    version: 0.1.0
+  sssd:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-01-22T12:07:05.534475576Z"
+    description: A Helm chart for Kubernetes
+    digest: 74f9ac0faa2d042bbbe1831871673cd1334b5f5a3b8d38d34ae8cc92573dcc83
+    name: sssd
+    type: application
+    urls:
+    - https://github.com/borg-fleet/helm-charts/releases/download/sssd-0.1.0/sssd-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-01-22T12:07:05.534486476Z"
