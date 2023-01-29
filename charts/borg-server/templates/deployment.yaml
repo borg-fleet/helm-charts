@@ -45,6 +45,9 @@ spec:
               port: {{ .Values.service.port }}
           resources:
             {{- toYaml .Values.resources.borg | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config-sshd
           volumeMounts:
             - mountPath: /var/lib/sss/pipes
               name: sssd-pipes

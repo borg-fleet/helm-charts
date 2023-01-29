@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config-sssd
 data:
-  SSSD_CONFIG: |+
+  SSSD_CONF: |
     {{- range $section, $sectionContent := .Values.config.sssd }}
     [{{ $section }}]
     {{- range $key, $value := $sectionContent }}
@@ -16,7 +16,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config-ssh
 data:
-  SSHD_CONFIG: |+
+  SSHD_CONF: |
     {{- range $key, $value := .Values.config.sshd }}
     {{ $key }} {{ $value }}
     {{- end }}
