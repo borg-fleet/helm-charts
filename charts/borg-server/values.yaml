@@ -105,6 +105,6 @@ config:
       filter_users: root
 
     domain/LOCAL:
-      id_provider: local
-      auth_provider: local
+      id_provider: files
+      auth_provider: files
       access_provider: permit
