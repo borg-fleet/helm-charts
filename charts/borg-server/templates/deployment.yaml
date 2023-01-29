@@ -44,7 +44,7 @@ spec:
             tcpSocket:
               port: {{ .Values.service.port }}
           resources:
-            {{- toYaml .Values.borg.resources | nindent 12 }}
+            {{- toYaml .Values.resources.borg | nindent 12 }}
           volumeMounts:
             - mountPath: /var/lib/sss/pipes
               name: sssd-pipes
@@ -54,7 +54,7 @@ spec:
           image: "{{ .Values.image.sssd.repository }}:{{ .Values.image.sssd.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.sssd.pullPolicy }}
           resources:
-            {{- toYaml .Values.sssd.resources | nindent 12 }}
+            {{- toYaml .Values.resources.sssd | nindent 12 }}
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config-sssd

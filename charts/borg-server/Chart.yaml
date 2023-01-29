@@ -2,6 +2,10 @@ apiVersion: v2
 name: borg-server
 description: A Helm chart for Kubernetes
 
+maintainers:
+  - name: Philipp Hossner
+    email: philipp.hossner@posteo.de
+
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
