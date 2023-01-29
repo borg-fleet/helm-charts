@@ -5,6 +5,7 @@ description: A Helm chart for Kubernetes
 maintainers:
   - name: Philipp Hossner
     email: philipp.hossner@posteo.de
+    url: https://github.com/phihos
 
 # A chart can be either an 'application' or a 'library' chart.
 #
