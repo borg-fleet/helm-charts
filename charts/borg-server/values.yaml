@@ -92,4 +92,19 @@ affinity: {}
 
 config:
   sshd: {}
-  sssd: {}
+  # this is a basic config that very likely dow not do what you want
+  # for further information see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/sssd
+  sssd:
+    sssd:
+      domains: LOCAL
+      services: nss
+      config_file_version: 2
+
+    nss:
+      filter_groups: root
+      filter_users: root
+
+    domain/LOCAL:
+      id_provider: local
+      auth_provider: local
+      access_provider: permit
