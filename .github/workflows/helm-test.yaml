@@ -44,5 +44,4 @@ jobs:
 
       - name: Run chart-testing (install)
         run: |
-          git fetch --all
-          ct install
+          ct install --target-branch ${{ github.event.repository.default_branch }}
