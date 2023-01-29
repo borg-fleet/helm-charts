@@ -3,7 +3,7 @@ name: borg-fleet
 description: A Helm chart for Kubernetes
 
 maintainers:
-  - name: Philipp Hossner
+  - name: phihos
     email: philipp.hossner@posteo.de
     url: https://github.com/phihos
 
