@@ -5,10 +5,15 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  borg:
+    repository: ghcr.io/borg-fleet/borg
+    pullPolicy: IfNotPresent
+    tag: ""
+  sssd:
+    repository: ghcr.io/borg-fleet/sssd
+    pullPolicy: IfNotPresent
+    tag: ""
+
 
 imagePullSecrets: []
 nameOverride: ""
@@ -28,7 +33,9 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  borg: {}
+  sssd: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -38,7 +45,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 22
 
 ingress:
   enabled: false
@@ -80,3 +87,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+config:
+  sshd: {}
+  sssd: {}

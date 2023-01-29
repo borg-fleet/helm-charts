@@ -30,23 +30,40 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- toYaml .Values.securityContext.borg | nindent 12 }}
+          image: "{{ .Values.image.borg.repository }}:{{ .Values.image.borg.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.borg.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: {{ .Values.service.port }}
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: {{ .Values.service.port }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.borg.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /var/lib/sss/pipes
+              name: sssd-pipes
+        - name: {{ .Chart.Name }}-sssd
+          securityContext:
+            {{- toYaml .Values.securityContext.sssd | nindent 12 }}
+          image: "{{ .Values.image.sssd.repository }}:{{ .Values.image.sssd.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.sssd.pullPolicy }}
+          resources:
+            {{- toYaml .Values.sssd.resources | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config-sssd
+          volumeMounts:
+            - mountPath: /var/lib/sss/pipes
+              name: sssd-pipes
+      volumes:
+        - name: sssd-pipes
+          emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
