@@ -34,7 +34,7 @@ spec:
           image: "{{ .Values.image.borg.repository }}:{{ .Values.image.borg.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.borg.pullPolicy }}
           ports:
-            - name: http
+            - name: ssh
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
