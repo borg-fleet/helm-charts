@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-config-ssh
+  name: {{ .Release.Name }}-config-sshd
 data:
   SSHD_CONF: |
     {{- range $key, $value := .Values.config.sshd }}
