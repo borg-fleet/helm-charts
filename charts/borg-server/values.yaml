@@ -118,7 +118,6 @@ config:
     DebianBanner: 'no'
     ClientAliveInterval: 10
     ClientAliveCountMax: 30
-    
     AuthorizedKeysCommandUser: sshd
     AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys %u
     ForceCommand: borg serve --restrict-to-path "$${HOME}" --lock-wait 600 --append-only
