@@ -63,6 +63,16 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# specify additional volumes to mount in the core container, this can be used
+# to specify additional storage of material or to inject files from ConfigMaps
+# into the running container
+additionalVolumes: []
+
+# specify where the additional volumes are mounted in the core container
+additionalVolumeMounts:
+  borg: {}
+  sssd: {}
+
 resources:
   borg: {}
   sssd: {}
@@ -91,7 +101,27 @@ tolerations: []
 affinity: {}
 
 config:
-  sshd: {}
+  sshd:
+    Port: 22
+    UsePam: 'yes'
+    PermitRootLogin: 'no'
+    PasswordAuthentication: 'yes'
+    ChallengeResponseAuthentication: 'no'
+    KerberosAuthentication: 'no'
+    GSSAPIAuthentication: 'no'
+    X11Forwarding: 'no'
+    AllowAgentForwarding: 'no'
+    AllowTcpForwarding: 'no'
+    PermitTunnel: 'no'
+    PermitUserEnvironment: 'no'
+    PrintMotd: 'no'
+    DebianBanner: 'no'
+    ClientAliveInterval: 10
+    ClientAliveCountMax: 30
+    
+    AuthorizedKeysCommandUser: sshd
+    AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys %u
+    ForceCommand: borg serve --restrict-to-path "$${HOME}" --lock-wait 600 --append-only
   # this is a basic config that very likely dow not do what you want
   # for further information see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/sssd
   sssd:
