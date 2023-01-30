@@ -45,6 +45,6 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           ct install --all
-          kubectl ns
+          kubectl get ns
           kubectl get pod
           
