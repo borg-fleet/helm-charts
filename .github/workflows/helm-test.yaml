@@ -44,8 +44,9 @@ jobs:
 
       - name: Run chart-testing (install)
         run: |
-          ct install --help
-          ct install --all --skip-clean-up
+          # uncomment below when ct is on v3.7.2 or later
+          # ct install --all --skip-clean-up
+          helm install borg-server charts/borg-server
           kubectl get ns
           kubectl get pod
           
