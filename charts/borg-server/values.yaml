@@ -101,6 +101,8 @@ tolerations: []
 affinity: {}
 
 config:
+  # annotations to put on each config map
+  annotations: {}
   sshd:
     Port: 22
     UsePam: 'yes'
@@ -118,7 +120,7 @@ config:
     DebianBanner: 'no'
     ClientAliveInterval: 10
     ClientAliveCountMax: 30
-    AuthorizedKeysCommandUser: sshd
+    AuthorizedKeysCommandUser: nobody
     AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys %u
     ForceCommand: borg serve --restrict-to-path "${HOME}" --lock-wait 600 --append-only
   # this is a basic config that very likely dow not do what you want
@@ -137,3 +139,9 @@ config:
       id_provider: files
       auth_provider: files
       access_provider: permit
+  # addtitional config maps
+  # the outermost key is the suffix for {{ .Release.Name }}-config-<suffix>, the inner keys are data keys
+  additionalConfigMaps: {}
+  #  myconfig:  # evaluates to "releasename-config-myconfig" as ConfigMap name
+  #    key1: value1
+  #    key2: value2
