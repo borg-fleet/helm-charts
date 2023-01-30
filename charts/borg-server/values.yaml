@@ -120,7 +120,7 @@ config:
     ClientAliveCountMax: 30
     AuthorizedKeysCommandUser: sshd
     AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys %u
-    ForceCommand: borg serve --restrict-to-path "$${HOME}" --lock-wait 600 --append-only
+    ForceCommand: borg serve --restrict-to-path "${HOME}" --lock-wait 600 --append-only
   # this is a basic config that very likely dow not do what you want
   # for further information see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/sssd
   sssd:
