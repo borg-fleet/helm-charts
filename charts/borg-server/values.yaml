@@ -63,15 +63,23 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# addtitional config maps
+additionalConfigMaps: {}
+#  myconfig:  # creates a ConfigMap with name "myconfig"
+#    key1: value1
+#    key2: value2
+
 # specify additional volumes to mount in the core container, this can be used
 # to specify additional storage of material or to inject files from ConfigMaps
 # into the running container
 additionalVolumes: []
 
-# specify where the additional volumes are mounted in the core container
+
+# specify where the additional volumes are mounted
+# usually combined with additionalConfigMaps
 additionalVolumeMounts:
-  borg: {}
-  sssd: {}
+  borg: []
+  sssd: []
 
 resources:
   borg: {}
@@ -128,7 +136,7 @@ config:
   sssd:
     sssd:
       domains: LOCAL
-      services: nss
+      services: nss,pam,ssh
       config_file_version: 2
 
     nss:
@@ -137,11 +145,4 @@ config:
 
     domain/LOCAL:
       id_provider: files
-      auth_provider: files
       access_provider: permit
-  # addtitional config maps
-  # the outermost key is the suffix for {{ .Release.Name }}-config-<suffix>, the inner keys are data keys
-  additionalConfigMaps: {}
-  #  myconfig:  # evaluates to "releasename-config-myconfig" as ConfigMap name
-  #    key1: value1
-  #    key2: value2

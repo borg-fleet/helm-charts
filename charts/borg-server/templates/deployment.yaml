@@ -68,13 +68,13 @@ spec:
             - mountPath: /var/lib/sss/pipes
               name: sssd-pipes
             {{- if .Values.additionalVolumeMounts.sssd }}
-            {{ toYaml .Values.additionalVolumeMounts.sssd | indent 12}}
+            {{ toYaml .Values.additionalVolumeMounts.sssd | nindent 12}}
             {{- end }}
       volumes:
         - name: sssd-pipes
           emptyDir: {}
         {{- if .Values.additionalVolumes }}
-        {{ toYaml .Values.additionalVolumes | indent 8}}
+        {{ toYaml .Values.additionalVolumes | nindent 8}}
         {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

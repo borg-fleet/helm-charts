@@ -1,10 +1,12 @@
+{{- $labels := include "borg-server.labels" . -}}
+{{- $annotations := .Values.config.annotations -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config-sssd
   labels:
-    {{- include "borg-server.labels" . | nindent 4 }}
-  {{- with .Values.config.annotations }}
+    {{- $labels | nindent 4 }}
+  {{- with $annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -22,8 +24,8 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config-sshd
   labels:
-    {{- include "borg-server.labels" . | nindent 4 }}
-  {{- with .Values.config.annotations }}
+    {{- $labels | nindent 4 }}
+  {{- with $annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -32,15 +34,15 @@ data:
     {{- range $key, $value := .Values.config.sshd }}
     {{ $key }} {{ $value }}
     {{- end }}
-{{- range $suffix, $configData := .Values.config.additionalConfigMaps }}
+{{- range $cmName, $configData := .Values.additionalConfigMaps }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-config-{{ $suffix }}
+  name: {{ $cmName }}
   labels:
-    {{- include "borg-server.labels" . | nindent 4 }}
-  {{- with .Values.config.annotations }}
+    {{- $labels | nindent 4 }}
+  {{- with $annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}

@@ -46,7 +46,7 @@ jobs:
         run: |
           # uncomment below when ct is on v3.7.2 or later
           # ct install --all --skip-clean-up
-          helm install borg-server charts/borg-server --wait
+          helm install borg-server charts/borg-server --values test/borg-server-values.yaml --wait
           kubectl get ns
           kubectl get pod
           kubectl get deployment

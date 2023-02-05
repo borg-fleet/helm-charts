@@ -1,0 +1,32 @@
+additionalConfigMaps:
+  sssd-pam:
+    pam-sssd-client: |
+      auth      required  pam_unix.so shadow nullok
+
+additionalVolumes:
+  - name: pam-sssd-client-volume
+    configMap:
+      name: sssd-pam
+      items:
+        - key: pam-sssd-client
+          path: pam-sssd-client
+
+additionalVolumeMounts:
+  sssd:
+    - name: pam-sssd-client-volume
+      mountPath: /etc/pam.d/sssd-client
+      subPath: pam-sssd-client
+
+config:
+  sssd:
+    sssd:
+      debug_level: 9
+    pam:
+      debug_level: 9
+      pam_verbosity: 3
+    nss:
+      debug_level: 9
+    domain/LOCAL:
+      debug_level: 9
+      auth_provider: proxy
+      proxy_pam_target: sssd-client
