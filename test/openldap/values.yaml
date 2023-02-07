@@ -1,0 +1,22 @@
+openldap-stack-ha:
+  global:
+    ldapDomain: "example.org"
+    ## Default Passwords to use, stored as a secret. Not used if existingSecret is set.
+    adminPassword: admin
+    configPassword: admin
+  users: testuser
+  userPasswords: testuser
+  group: testgroup
+  logLevel: trace
+  env:
+    LDAP_LOGLEVEL: '1'
+  replicaCount: 1
+  replication:
+    enabled: false  
+  persistence:
+    enabled: false
+  ltb-passwd:
+    enabled : false
+  phpldapadmin:
+    enabled: false
+

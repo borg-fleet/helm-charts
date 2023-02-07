@@ -1,32 +1,27 @@
-additionalConfigMaps:
-  sssd-pam:
-    pam-sssd-client: |
-      auth      required  pam_unix.so shadow nullok
-
-additionalVolumes:
-  - name: pam-sssd-client-volume
-    configMap:
-      name: sssd-pam
-      items:
-        - key: pam-sssd-client
-          path: pam-sssd-client
-
-additionalVolumeMounts:
-  sssd:
-    - name: pam-sssd-client-volume
-      mountPath: /etc/pam.d/sssd-client
-      subPath: pam-sssd-client
-
 config:
   sssd:
     sssd:
       debug_level: 9
+      services: nss, pam, ssh
+      domains: ldap
     pam:
       debug_level: 9
       pam_verbosity: 3
     nss:
       debug_level: 9
-    domain/LOCAL:
+    domain/ldap:
       debug_level: 9
-      auth_provider: proxy
-      proxy_pam_target: sssd-client
+      id_provider: ldap
+      auth_provider: ldap
+      ldap_uri: ldap://openldap.default.svc.cluster.local
+      ldap_id_use_start_tls: true
+      ldap_tls_reqcert: allow
+      #ldap_tls_cacertdir: /ldap-certs
+      cache_credentials: false
+      enumerate: true
+      use_fully_qualified_names: false
+      ldap_schema: rfc2307
+      ldap_search_base: ou=testgroup,dc=example,dc=org
+      ldap_user_ssh_public_key: sshPublicKey
+      ldap_default_bind_dn: cn=admin,dc=example,dc=org
+      ldap_default_authtok: admin
