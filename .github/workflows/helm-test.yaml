@@ -16,10 +16,10 @@ jobs:
         with:
           version: v3.10.0
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          check-latest: true
+      #- uses: actions/setup-python@v4
+      #  with:
+      #    python-version: '3.9'
+      #    check-latest: true
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.3.1
@@ -51,10 +51,10 @@ jobs:
           kubectl get ns
           kubectl get pod
           kubectl get deployment
-          kubectl exec -it deploy/borg-server -- ls
+          kubectl exec deploy/borg-server -- getent passwd
 
           echo "Installing borgbackup"
-          sudo apt install -y borgbackup sshpass
+          sudo apt-get install -y borgbackup sshpass
           echo "Exposing SSHD to port 2223"
           kubectl port-forward service/borg-server 2223:22 &
 
