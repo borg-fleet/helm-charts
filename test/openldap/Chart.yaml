@@ -24,5 +24,5 @@ version: 0.1.0
 
 dependencies:
 - name: openldap-stack-ha
-  version: "4.0.2"
+  version: "4.1.1"
   repository: "https://jp-gouin.github.io/helm-openldap"
