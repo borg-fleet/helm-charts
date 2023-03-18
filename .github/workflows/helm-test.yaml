@@ -60,7 +60,10 @@ jobs:
 
           export BORG_REPO=ssh://testuser@localhost:2223/~/backup
           export BORG_PASSPHRASE=testuser
-          sshpass -p 'testuser' borg init --encryption=repokey-blake2
+          echo "Creating repo..."
+          sshpass -p 'testuser' borg init --debug --encryption=repokey-blake2
           echo "importantdata" > testfile.txt
-          sshpass -p 'testuser' borg create --stats ::testbackup testfile.txt
+          echo "Creating backup..."
+          sshpass -p 'testuser' borg create --debug --stats ::testbackup testfile.txt
+          echo "Checking backup list..."
           sshpass -p 'testuser' borg list | grep testbackup
