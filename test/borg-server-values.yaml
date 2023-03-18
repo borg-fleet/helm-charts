@@ -21,7 +21,7 @@ config:
       enumerate: true
       use_fully_qualified_names: false
       ldap_schema: rfc2307
-      ldap_search_base: ou=testgroup,dc=example,dc=org
+      ldap_search_base: ou=users,dc=example,dc=org
       ldap_user_ssh_public_key: sshPublicKey
       ldap_default_bind_dn: cn=admin,dc=example,dc=org
       ldap_default_authtok: admin

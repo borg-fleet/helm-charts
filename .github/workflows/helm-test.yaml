@@ -53,4 +53,14 @@ jobs:
           kubectl get deployment
           kubectl exec -it deploy/borg-server -- ls
 
-          
+          echo "Installing borgbackup"
+          sudo apt install -y borgbackup sshpass
+          echo "Exposing SSHD to port 2223"
+          kubectl port-forward service/borg-server 2223:22 &
+
+          export BORG_REPO=ssh://testuser@localhost:2223/~/backup
+          export BORG_PASSPHRASE=testuser
+          sshpass -p 'testuser' borg init --encryption=repokey-blake2
+          echo "importantdata" > testfile.txt
+          sshpass -p 'testuser' borg create --stats ::testbackup testfile.txt
+          sshpass -p 'testuser' borg list | grep testbackup
