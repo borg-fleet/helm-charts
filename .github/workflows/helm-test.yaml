@@ -1,0 +1,70 @@
+name: Lint and Test Charts
+
+on: pull_request
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.10.0
+
+      #- uses: actions/setup-python@v4
+      #  with:
+      #    python-version: '3.9'
+      #    check-latest: true
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.3.1
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+
+      - name: Run chart-testing (lint)
+        run: >
+          ct lint
+          --target-branch ${{ github.event.repository.default_branch }}
+          --check-version-increment=false
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.4.0
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Run chart-testing (install)
+        run: |
+          # uncomment below when ct is on v3.7.2 or later
+          # ct install --all --skip-clean-up
+          helm install openldap test/openldap --wait
+          helm install borg-server charts/borg-server --values test/borg-server-values.yaml --wait
+          kubectl get ns
+          kubectl get pod
+          kubectl get deployment
+          kubectl exec deploy/borg-server -- getent passwd
+
+          echo "Installing borgbackup"
+          sudo apt-get install -y borgbackup sshpass
+          echo "Exposing SSHD to port 2223"
+          kubectl port-forward service/borg-server 2223:22 &
+
+          export BORG_REPO=ssh://testuser@localhost:2223/~/backup
+          export BORG_PASSPHRASE=testuser
+          export BORG_RSH="sshpass -p testuser ssh -o StrictHostKeyChecking=no"
+          echo "Creating repo..."
+          borg init --debug --encryption=repokey-blake2
+          echo "importantdata" > testfile.txt
+          echo "Creating backup..."
+          borg create --debug --stats ::testbackup testfile.txt
+          echo "Checking backup list..."
+          borg list | grep testbackup

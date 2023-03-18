@@ -30,23 +30,52 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- toYaml .Values.securityContext.borg | nindent 12 }}
+          image: "{{ .Values.image.borg.repository }}:{{ .Values.image.borg.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.borg.pullPolicy }}
           ports:
-            - name: http
+            - name: ssh
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: {{ .Values.service.port }}
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: {{ .Values.service.port }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources.borg | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config-sshd
+          volumeMounts:
+            - mountPath: /var/lib/sss/pipes
+              name: sssd-pipes
+            {{- if .Values.additionalVolumeMounts.borg }}
+            {{ toYaml .Values.additionalVolumeMounts.borg | indent 12}}
+            {{- end }}
+        - name: {{ .Chart.Name }}-sssd
+          securityContext:
+            {{- toYaml .Values.securityContext.sssd | nindent 12 }}
+          image: "{{ .Values.image.sssd.repository }}:{{ .Values.image.sssd.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.sssd.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources.sssd | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config-sssd
+          volumeMounts:
+            - mountPath: /var/lib/sss/pipes
+              name: sssd-pipes
+            {{- if .Values.additionalVolumeMounts.sssd }}
+            {{ toYaml .Values.additionalVolumeMounts.sssd | nindent 12}}
+            {{- end }}
+      volumes:
+        - name: sssd-pipes
+          emptyDir: {}
+        {{- if .Values.additionalVolumes }}
+        {{ toYaml .Values.additionalVolumes | nindent 8}}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -5,10 +5,15 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  borg:
+    repository: ghcr.io/borg-fleet/borg
+    pullPolicy: IfNotPresent
+    tag: ""
+  sssd:
+    repository: ghcr.io/borg-fleet/sssd
+    pullPolicy: IfNotPresent
+    tag: ""
+
 
 imagePullSecrets: []
 nameOverride: ""
@@ -28,7 +33,9 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  borg: {}
+  sssd: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -38,7 +45,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 22
 
 ingress:
   enabled: false
@@ -56,7 +63,27 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+# addtitional config maps
+additionalConfigMaps: {}
+#  myconfig:  # creates a ConfigMap with name "myconfig"
+#    key1: value1
+#    key2: value2
+
+# specify additional volumes to mount in the core container, this can be used
+# to specify additional storage of material or to inject files from ConfigMaps
+# into the running container
+additionalVolumes: []
+
+
+# specify where the additional volumes are mounted
+# usually combined with additionalConfigMaps
+additionalVolumeMounts:
+  borg: []
+  sssd: []
+
+resources:
+  borg: {}
+  sssd: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -80,3 +107,42 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+config:
+  # annotations to put on each config map
+  annotations: {}
+  sshd:
+    Port: 22
+    UsePam: 'yes'
+    PermitRootLogin: 'no'
+    PasswordAuthentication: 'yes'
+    ChallengeResponseAuthentication: 'no'
+    KerberosAuthentication: 'no'
+    GSSAPIAuthentication: 'no'
+    X11Forwarding: 'no'
+    AllowAgentForwarding: 'no'
+    AllowTcpForwarding: 'no'
+    PermitTunnel: 'no'
+    PermitUserEnvironment: 'no'
+    PrintMotd: 'no'
+    DebianBanner: 'no'
+    ClientAliveInterval: 10
+    ClientAliveCountMax: 30
+    AuthorizedKeysCommandUser: nobody
+    AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys %u
+    ForceCommand: borg serve --restrict-to-path "${HOME}" --lock-wait 600 --append-only
+  # this is a basic config that very likely dow not do what you want
+  # for further information see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/sssd
+  sssd:
+    sssd:
+      domains: LOCAL
+      services: nss,pam,ssh
+      config_file_version: 2
+
+    nss:
+      filter_groups: root
+      filter_users: root
+
+    domain/LOCAL:
+      id_provider: files
+      access_provider: permit
