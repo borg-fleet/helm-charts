@@ -13,6 +13,6 @@ do
     new_patch=$(( patch + 1 ))
     new_version="${major}.${minor}.${new_patch}"
     echo "${current_version} -> ${new_version}"
-    sed -i "s|version.*|version: ${new_version}|" "${file}"
+    sed -i "s|^version.*|version: ${new_version}|" "${file}"
   fi
 done
