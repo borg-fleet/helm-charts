@@ -6,6 +6,9 @@
     "labels": [
         "dependencies"
     ],
+    "repositories": [
+        "borg-fleet/helm-charts"
+    ],
     "automergeStrategy": "merge-commit",
     "prHourlyLimit": 2
 }
