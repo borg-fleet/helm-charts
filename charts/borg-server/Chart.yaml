@@ -13,5 +13,5 @@ maintainers:
     url: https://github.com/phihos
 type: application
 version: 0.1.0
-# renovate: appImage=ghcr.io/borg-fleet/borg
+# renovate: image=ghcr.io/borg-fleet/borg
 appVersion: "2023-01-29"

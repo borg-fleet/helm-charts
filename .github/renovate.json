@@ -18,10 +18,10 @@
     "regexManagers": [
         {
             "fileMatch": [
-                "/charts/borg-server/Chart\\.yaml$"
+                "(^|/)Chart\\.yaml$"
             ],
             "matchStrings": [
-                "#\\s?renovate: appImage=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
+                "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
             ],
             "datasourceTemplate": "docker"
         }
