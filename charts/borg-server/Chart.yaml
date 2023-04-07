@@ -1,6 +1,12 @@
 apiVersion: v2
 name: borg-server
-description: A Helm chart for Kubernetes
+description: |
+  The borg-server helm chart provides a minimally scalable setup by providing a pod with
+    * SSSD for user discovery and auth (including providing SSH public keys)
+    * SSHD + borg utilizing the SSSD via a common unix socket
+
+  Note that currently the containers must be run as root since a rootless version comes with significant drawbacks
+  including improper privilege separation.
 
 maintainers:
   - name: phihos
