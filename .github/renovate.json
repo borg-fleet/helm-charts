@@ -14,7 +14,7 @@
         "borg-fleet/helm-charts"
     ],
     "automergeStrategy": "merge-commit",
-    "prHourlyLimit": 2,
+    "prHourlyLimit": 10,
     "regexManagers": [
         {
             "fileMatch": [
@@ -24,6 +24,14 @@
                 "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
             ],
             "datasourceTemplate": "docker"
+        }
+    ],
+    "packageRules": [
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "versioning": "regex:^(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)$"
         }
     ]
 }
