@@ -14,5 +14,16 @@
         "borg-fleet/helm-charts"
     ],
     "automergeStrategy": "merge-commit",
-    "prHourlyLimit": 2
+    "prHourlyLimit": 2,
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "/charts/borg-server/Chart\\.yaml$"
+            ],
+            "matchStrings": [
+                "#\\s?renovate: appImage=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
+            ],
+            "datasourceTemplate": "docker"
+        }
+    ]
 }
