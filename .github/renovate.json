@@ -24,15 +24,6 @@
                 "#\\s?renovate: appImage=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
             ],
             "datasourceTemplate": "docker"
-        },
-        {
-            "fileMatch": [
-                "/charts/borg-server/Chart\\.yaml$"
-            ],
-            "matchStrings": [
-                "#\\s?renovate: sssdImage=(?<depName>.*?)\\s?sssdVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
-            ],
-            "datasourceTemplate": "docker"
         }
     ]
 }

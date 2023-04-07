@@ -15,5 +15,3 @@ type: application
 version: 0.1.0
 # renovate: appImage=ghcr.io/borg-fleet/borg
 appVersion: "2023-01-29"
-# renovate: sssdImage=ghcr.io/borg-fleet/sssd
-sssdVersion: "2023-01-29"

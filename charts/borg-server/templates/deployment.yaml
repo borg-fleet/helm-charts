@@ -57,7 +57,7 @@ spec:
         - name: {{ .Chart.Name }}-sssd
           securityContext:
             {{- toYaml .Values.securityContext.sssd | nindent 12 }}
-          image: "{{ .Values.image.sssd.repository }}:{{ .Values.image.sssd.tag | default .Chart.sssdVersion }}"
+          image: "{{ .Values.image.sssd.repository }}:{{ .Values.image.sssd.tag | default .Chart.appVersion }}"
           imagePullPolicy: {{ .Values.image.sssd.pullPolicy }}
           resources:
             {{- toYaml .Values.resources.sssd | nindent 12 }}
