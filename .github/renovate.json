@@ -13,6 +13,9 @@
     "repositories": [
         "borg-fleet/helm-charts"
     ],
+    "automerge": true,
+    "automergeType": "pr",
+    "platformAutomerge": true,
     "automergeStrategy": "merge-commit",
     "prHourlyLimit": 10,
     "regexManagers": [
