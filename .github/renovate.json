@@ -16,7 +16,7 @@
     "automerge": true,
     "automergeType": "pr",
     "platformAutomerge": true,
-    "recreateClosed": false,
+    "recreateClosed": true,
     "automergeStrategy": "merge-commit",
     "prHourlyLimit": 10,
     "bumpVersion": "patch",
