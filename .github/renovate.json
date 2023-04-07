@@ -37,5 +37,17 @@
             ],
             "versioning": "regex:^(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)$"
         }
-    ]
+    ],
+    "allowedPostUpgradeCommands": [
+        "./bump_chart_version.sh"
+    ],
+    "postUpgradeTasks": {
+        "commands": [
+            "./bump_chart_version.sh"
+        ],
+        "fileFilters": [
+            "**/*"
+        ],
+        "executionMode": "update"
+    }
 }
