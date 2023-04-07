@@ -18,6 +18,7 @@
     "platformAutomerge": true,
     "automergeStrategy": "merge-commit",
     "prHourlyLimit": 10,
+    "bumpVersion": "patch",
     "regexManagers": [
         {
             "fileMatch": [
