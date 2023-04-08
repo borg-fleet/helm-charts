@@ -126,10 +126,10 @@ config:
     #!/usr/bin/env bash
     set -e
 
-    BORG_CMD=borg serve --restrict-to-path "${HOME}" --lock-wait 600 --append-only
+    BORG_CMD=("borg" "serve" "--restrict-to-path" "${HOME}" "--lock-wait" "600" "--append-only")
 
-    echo "Your original command \"${SSH_ORIGINAL_COMMAND}\" has been ignored. Executing \"${BORG_CMD}\" instead..."
-    ${BORG_CMD}
+    >&2 echo "Your original command \"${SSH_ORIGINAL_COMMAND}\" has been ignored. Executing \"${BORG_CMD[@]}\" instead..."
+    "${BORG_CMD[@]}"
 
   sshd:
     Port: 22
@@ -150,7 +150,7 @@ config:
     ClientAliveCountMax: 30
     AuthorizedKeysCommandUser: nobody
     AuthorizedKeysCommand: /usr/bin/sss_ssh_authorizedkeys %u
-    ForceCommand: borg serve --restrict-to-path "${HOME}" --lock-wait 600 --append-only
+    ForceCommand: /force-command.sh
   # this is a basic config that very likely does not do what you want
   # for further information see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/sssd
   sssd:
