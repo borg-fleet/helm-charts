@@ -1,4 +1,19 @@
-1. Get the application URL by running these commands:
+{{- if not .Values.config.sshd_config_mounts }}
+!!! Important !!!
+
+Your SSH host keys will regenerate on every deployment restart.
+This is bad if you rely on trust on first use. Please follow these steps to make the current host keys permananent:
+
+  1. Run "kubectl exec deployment/{{ include "borg-server.fullname" . }} -c borg-server -- bash -c 'more /etc/ssh/ssh_host* | cat'"
+  2. Go to your values.yaml and for each of these files create a key config.sshd_config_mounts.<filename> with the value being the file contents.
+     Example:
+      config:
+        sshd_config_mounts:
+          ssh_host_ecdsa_key.pub: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJLiq7fRNNdYWxnZjEVFz1k8W1cmC11pIKOuhBE0zX22iHI86rkHQxtmwHJcBxQNwtwOeZD5hJTbXfjbNiH+Rpw= root@borg-server-6bd84cbf66-k5zq4"
+  3. Upgrade your deployment with the new values. You now have persistent host keys.
+{{- end }}
+
+Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
 {{- range $host := .Values.ingress.hosts }}
   echo "Run \"borg init --encryption=repokey-blake2 ssh://{{ $host.host }}/~/backup\" to create a borg repo"
