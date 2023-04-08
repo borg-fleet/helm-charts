@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "borg-server.fullname" . }}
+  annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
   labels:
     {{- include "borg-server.labels" . | nindent 4 }}
 spec:
