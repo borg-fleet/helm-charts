@@ -46,7 +46,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 data:
-  force-command.sh: {{ tpl .Values.config.sshd_force_command_template . | nindent 4 }}
+  force-command.sh: {{ tpl .Values.config.sshd_force_command_template . | quote | nindent 4 }}
 {{- range $cmName, $configData := .Values.additionalConfigMaps }}
 ---
 apiVersion: v1
