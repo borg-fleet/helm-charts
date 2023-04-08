@@ -1,4 +1,93 @@
 config:
+  sshd_config_mounts:
+    # do not use the keys below under any circumstances!
+    # this is for testing only!
+    ssh_host_dsa_key: |
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABswAAAAdzc2gtZH
+      NzAAAAgQDk5E3fU20Ck1H/sDwwIbXvzmXFNQPSGvRLo1QaemDe1pKRSijcnGtvIS6h3xei
+      IXsyEYkG43SyBDVMVfIJKCXEO8s8Io+pu1mRcvujTTAKM2BKge0Oo0X809251NqqDfuWuH
+      QrcFZatyFWmy08OxuZ/IwTXCQcgVLcKFvI6Y+ywwAAABUA9ikkodAyswW6xB0sX+ROUOpR
+      M1kAAACBAJJDET4Sz78es/KzxUpJqAZW07BAUV283y7bJ8pZAFU4ie9x+aEDp1c7WDf5RT
+      edbnag2ZA33bnCHb2kw9gzdxVAOGp0ysudROCB902ho7dAvEMEnRr3hHU6RsR9EqMh7zup
+      9FYcVA/qHTfof1/YKi3ZMOIelwNkntoQH/Oap0maAAAAgQCDcFzh9nNOYLVUHTS/Vt8V9S
+      PrYQYE/IaxXVLyFdYy6rpWPoQR0rTeL6B6WZZM1UlP1ZYIKuuq7sCBiwzt+BGRicQDLsMg
+      I7fFqSOdem5Ho1WowcatIbg0HfAK8iEViDyGlr3scCtGqTdLUm8/XrT+mGA7cDVLHAWx5S
+      lxfO4a6wAAAgAC4obVAuKG1QAAAAdzc2gtZHNzAAAAgQDk5E3fU20Ck1H/sDwwIbXvzmXF
+      NQPSGvRLo1QaemDe1pKRSijcnGtvIS6h3xeiIXsyEYkG43SyBDVMVfIJKCXEO8s8Io+pu1
+      mRcvujTTAKM2BKge0Oo0X809251NqqDfuWuHQrcFZatyFWmy08OxuZ/IwTXCQcgVLcKFvI
+      6Y+ywwAAABUA9ikkodAyswW6xB0sX+ROUOpRM1kAAACBAJJDET4Sz78es/KzxUpJqAZW07
+      BAUV283y7bJ8pZAFU4ie9x+aEDp1c7WDf5RTedbnag2ZA33bnCHb2kw9gzdxVAOGp0ysud
+      ROCB902ho7dAvEMEnRr3hHU6RsR9EqMh7zup9FYcVA/qHTfof1/YKi3ZMOIelwNkntoQH/
+      Oap0maAAAAgQCDcFzh9nNOYLVUHTS/Vt8V9SPrYQYE/IaxXVLyFdYy6rpWPoQR0rTeL6B6
+      WZZM1UlP1ZYIKuuq7sCBiwzt+BGRicQDLsMgI7fFqSOdem5Ho1WowcatIbg0HfAK8iEViD
+      yGlr3scCtGqTdLUm8/XrT+mGA7cDVLHAWx5SlxfO4a6wAAABUAgH+j3XXBszB9Sb8zPZ2Y
+      GTAipIsAAAAhcm9vdEBib3JnLXNlcnZlci02YmQ4NGNiZjY2LWxra2Z6AQIDBAUGBw==
+      -----END OPENSSH PRIVATE KEY-----
+    ssh_host_dsa_key.pub: |
+      ssh-dss AAAAB3NzaC1kc3MAAACBAOTkTd9TbQKTUf+wPDAhte/OZcU1A9Ia9EujVBp6YN7WkpFKKNyca28hLqHfF6IhezIRiQbjdLIENUxV8gkoJcQ7yzwij6m7WZFy+6NNMAozYEqB7Q6jRfzT3bnU2qoN+5a4dCtwVlq3IVabLTw7G5n8jBNcJByBUtwoW8jpj7LDAAAAFQD2KSSh0DKzBbrEHSxf5E5Q6lEzWQAAAIEAkkMRPhLPvx6z8rPFSkmoBlbTsEBRXbzfLtsnylkAVTiJ73H5oQOnVztYN/lFN51udqDZkDfducIdvaTD2DN3FUA4anTKy51E4IH3TaGjt0C8QwSdGveEdTpGxH0SoyHvO6n0VhxUD+odN+h/X9gqLdkw4h6XA2Se2hAf85qnSZoAAACBAINwXOH2c05gtVQdNL9W3xX1I+thBgT8hrFdUvIV1jLqulY+hBHStN4voHpZlkzVSU/Vlggq66ruwIGLDO34EZGJxAMuwyAjt8WpI516bkejVajBxq0huDQd8AryIRWIPIaWvexwK0apN0tSbz9etP6YYDtwNUscBbHlKXF87hrr root@borg-server-6bd84cbf66-lkkfz
+    ssh_host_ecdsa_key: |
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAaAAAABNlY2RzYS
+      1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQRkEJMmUSRhvdttblhDzvhGWS+6M37V
+      3Nmfs1Tp0aK0MYlwFN/pcqwt5WhPsGVkhXscDaElRN2Ed4ACrNb5VTVPAAAAwB1JViQdSV
+      YkAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGQQkyZRJGG9221u
+      WEPO+EZZL7ozftXc2Z+zVOnRorQxiXAU3+lyrC3laE+wZWSFexwNoSVE3YR3gAKs1vlVNU
+      8AAAAgCZzhKD8NtjGtlZlhxhzG0egEJvTvRam5czHhMvwv21YAAAAhcm9vdEBib3JnLXNl
+      cnZlci02YmQ4NGNiZjY2LWxra2Z6AQIDBAUGBw==
+      -----END OPENSSH PRIVATE KEY-----
+    ssh_host_ecdsa_key.pub: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJLiq7fRNNdYWxnZjEVFz1k8W1cmC11pIKOuhBE0zX22iHI86rkHQxtmwHJcBxQNwtwOeZD5hJTbXfjbNiH+Rpw= root@borg-server-6bd84cbf66-k5zq4"
+    ssh_host_ed25519_key: |
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+      QyNTUxOQAAACBc7zA3PwrbohR7jzQmNWB9k0kiaOtSr0opvwbAPK2n3QAAAKhPjS5IT40u
+      SAAAAAtzc2gtZWQyNTUxOQAAACBc7zA3PwrbohR7jzQmNWB9k0kiaOtSr0opvwbAPK2n3Q
+      AAAEAcDmjD/fZO/roW3urb8cJ63FvS3beYUy28hBfPk76xxlzvMDc/CtuiFHuPNCY1YH2T
+      SSJo61KvSim/BsA8rafdAAAAIXJvb3RAYm9yZy1zZXJ2ZXItNmJkODRjYmY2Ni1sa2tmeg
+      ECAwQ=
+      -----END OPENSSH PRIVATE KEY-----
+    ssh_host_ed25519_key.pub: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFzvMDc/CtuiFHuPNCY1YH2TSSJo61KvSim/BsA8rafd root@borg-server-6bd84cbf66-lkkfz
+    ssh_host_rsa_key: |
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      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
+      -----END OPENSSH PRIVATE KEY-----
+    ssh_host_rsa_key.pub: |
+     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCs1BIyi6Lubptckrm09edtJPbg2X6DY5d1llTO6+Y/LFDlXomnx/vwRRMn7rbMu6H+0M50N6K6tR14IUIGvybfDCoVdbPHDGd/0jxjvWC1Wbyput0h01+edpzrF4WUV0OOW33Zgu4SN3uTKn3y5Vj8BzysgWL9BqtfuSd2ls/sijhoVyiW/s6KWeiA5OASoUmkw1VePBBWrfpgrNsrMIVtMaHaxrOO9TD9CSXgz8q6P6z5x12srzYdBHdKDmXts8Kwxzl9bgJAZkLC8dvTTGatq2zrhdtgrWCSVNGy5e8rzZ7zee9kW6yNIdx1MWoIEfDTduc9LEEG1mBpxtP7/M0JFXUepzQaok+Vj/rosrrwRjCG/rvvX/ApdaWhLr4PZWRUr3sqWBx6I0LzLlBq40whxHuTXnnNnV9+iv7CRrdAMQI7/RYYpWisPEa7VsEqoVze4XC1xf/mptlHwkLAaWGK6ZBUhBp61HZUHwpEObQ5zByT88mVUJk7sgO0m3Ox3J8= root@borg-server-6bd84cbf66-lkkfz
   sssd:
     sssd:
       debug_level: 9

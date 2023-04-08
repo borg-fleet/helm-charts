@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "borg-server.fullname" . }}
   annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    checksum/config: {{ printf "%s%s" (include (print $.Template.BasePath "/configmap.yaml") .) (include (print $.Template.BasePath "/secret.yaml") .) | sha256sum }}
   labels:
     {{- include "borg-server.labels" . | nindent 4 }}
 spec:
@@ -56,6 +56,11 @@ spec:
             - name: sshd-force-command
               mountPath: /force-command.sh
               subPath: force-command.sh
+            {{- range $key, $value := .Values.config.sshd_config_mounts }}
+            - name: sshd-config-mounts
+              mountPath: /etc/ssh/{{ $key }}
+              subPath: {{ $key }}
+            {{- end }}
             - mountPath: {{ .Values.persistence.mountPath }}
               name: borg-data
             {{- if .Values.additionalVolumeMounts.borg }}
@@ -84,6 +89,10 @@ spec:
           configMap:
             name: {{ .Release.Name }}-force-command
             defaultMode: 0555
+        - name: sshd-config-mounts
+          secret:
+            secretName: {{ .Release.Name }}-sshd-config-mounts
+            defaultMode: 0400
         - name: borg-data
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:

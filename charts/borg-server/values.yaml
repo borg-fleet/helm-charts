@@ -130,6 +130,12 @@ config:
 
     >&2 echo "Your original command \"${SSH_ORIGINAL_COMMAND}\" has been ignored. Executing \"${BORG_CMD[@]}\" instead..."
     "${BORG_CMD[@]}"
+  
+  # files to be mounted at /etc/ssh like host keys
+  # keys are file names like "ssh_host_ecdsa_key" and values are the file contents
+  # after the first deployment you can use this variable to persist the host keys
+  # important: do not use sshd_config as key
+  sshd_config_mounts: {}
 
   sshd:
     Port: 22
