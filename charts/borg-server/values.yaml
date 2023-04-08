@@ -128,7 +128,7 @@ config:
 
     BORG_CMD=("borg" "serve" "--restrict-to-path" "${HOME}" "--lock-wait" "600" "--append-only")
 
-    echo "Your original command \"${SSH_ORIGINAL_COMMAND}\" has been ignored. Executing \"${BORG_CMD}\" instead..."
+    echo "Your original command \"${SSH_ORIGINAL_COMMAND}\" has been ignored. Executing \"${BORG_CMD[@]}\" instead..."
     "${BORG_CMD[@]}"
 
   sshd:
