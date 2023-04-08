@@ -71,8 +71,8 @@ persistence:
   accessMode: ReadWriteMany
   # make sure the size is big enough to fit all backup repos
   size: 10Gi
-  storageClassName: ""
   mountPath: /home
+  # storageClassName: "myClass"
 
 # addtitional config maps
 additionalConfigMaps: {}

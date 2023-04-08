@@ -25,3 +25,7 @@ config:
       ldap_user_ssh_public_key: sshPublicKey
       ldap_default_bind_dn: cn=admin,dc=example,dc=org
       ldap_default_authtok: admin
+
+persistence:
+  # normally should be ReadWriteMany but kind only supports ReadWriteOnce by default
+  accessMode: ReadWriteOnce

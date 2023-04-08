@@ -5,7 +5,9 @@ metadata:
   name: {{ template "borg-server.fullname" . }}
   labels: {{- include "borg-server.labels" . | nindent 4 }}
 spec:
+  {{- if .Values.persistence.storageClassName }}
   storageClassName: {{ .Values.persistence.storageClassName | quote }}
+  {{- end }}
   accessModes:
     - {{ .Values.persistence.accessMode | quote }}
   resources:
