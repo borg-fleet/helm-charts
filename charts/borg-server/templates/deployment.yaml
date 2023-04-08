@@ -54,6 +54,8 @@ spec:
             {{- if .Values.additionalVolumeMounts.borg }}
             {{ toYaml .Values.additionalVolumeMounts.borg | indent 12}}
             {{- end }}
+            - mountPath: {{ .Values.persistence.mountPath }}
+              name: borg-data
         - name: {{ .Chart.Name }}-sssd
           securityContext:
             {{- toYaml .Values.securityContext.sssd | nindent 12 }}
@@ -76,6 +78,13 @@ spec:
         {{- if .Values.additionalVolumes }}
         {{ toYaml .Values.additionalVolumes | nindent 8}}
         {{- end }}
+        - name: borg-data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "borg-server.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
