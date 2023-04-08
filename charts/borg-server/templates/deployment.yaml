@@ -51,11 +51,14 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/sss/pipes
               name: sssd-pipes
+            - name: sshd-force-command
+              mountPath: /force-command.sh
+              subPath: force-command.sh
+            - mountPath: {{ .Values.persistence.mountPath }}
+              name: borg-data
             {{- if .Values.additionalVolumeMounts.borg }}
             {{ toYaml .Values.additionalVolumeMounts.borg | indent 12}}
             {{- end }}
-            - mountPath: {{ .Values.persistence.mountPath }}
-              name: borg-data
         - name: {{ .Chart.Name }}-sssd
           securityContext:
             {{- toYaml .Values.securityContext.sssd | nindent 12 }}
@@ -75,9 +78,10 @@ spec:
       volumes:
         - name: sssd-pipes
           emptyDir: {}
-        {{- if .Values.additionalVolumes }}
-        {{ toYaml .Values.additionalVolumes | nindent 8}}
-        {{- end }}
+        - name: sshd-force-command
+          configMap:
+            name: {{ .Release.Name }}-force-command
+            defaultMode: 0555
         - name: borg-data
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
@@ -85,6 +89,9 @@ spec:
         {{- else }}
           emptyDir: {}
         {{ end }}
+        {{- if .Values.additionalVolumes }}
+        {{ toYaml .Values.additionalVolumes | nindent 8}}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

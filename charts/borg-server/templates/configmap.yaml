@@ -34,6 +34,19 @@ data:
     {{- range $key, $value := .Values.config.sshd }}
     {{ $key }} {{ $value }}
     {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-force-command
+  labels:
+    {{- $labels | nindent 4 }}
+  {{- with $annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  force-command.sh: {{ tpl .Values.config.sshd_force_command_template . | nindent 4 }}
 {{- range $cmName, $configData := .Values.additionalConfigMaps }}
 ---
 apiVersion: v1
