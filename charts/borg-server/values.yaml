@@ -63,6 +63,17 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+persistence:
+  # disabling persistence is not recommended outside of test deployments
+  enabled: true
+  # setting this to ReadWriteOnce prevents advanced use-cases like multiple replicas 
+  # or addtional apps like an exporter or a web UI needing access to the files
+  accessMode: ReadWriteMany
+  # make sure the size is big enough to fit all backup repos
+  size: 10Gi
+  storageClassName: ""
+  mountPath: /home
+
 # addtitional config maps
 additionalConfigMaps: {}
 #  myconfig:  # creates a ConfigMap with name "myconfig"
