@@ -13,6 +13,24 @@ entries:
     version: 0.1.0
   borg-server:
   - apiVersion: v2
+    appVersion: "2023-05-28"
+    created: "2023-05-29T08:14:13.400111279Z"
+    description: 'The borg-server helm chart provides a minimally scalable setup by
+      providing a pod with   * SSSD for user discovery and auth (including providing
+      SSH public keys)   * SSHD + borg utilizing the SSSD via a common unix socket  Note
+      that currently the containers must be run as root since a rootless version:
+      0.1.0 including improper privilege separation. '
+    digest: cfa5a390448b3cb228d56839eef5dcb3a9ec94df227656a5076dc03e660fca23
+    maintainers:
+    - email: philipp.hossner@posteo.de
+      name: phihos
+      url: https://github.com/phihos
+    name: borg-server
+    type: application
+    urls:
+    - https://github.com/borg-fleet/helm-charts/releases/download/borg-server-0.1.12/borg-server-0.1.12.tgz
+    version: 0.1.12
+  - apiVersion: v2
     appVersion: "2023-05-21"
     created: "2023-05-22T08:14:04.835836521Z"
     description: 'The borg-server helm chart provides a minimally scalable setup by
@@ -231,4 +249,4 @@ entries:
     urls:
     - https://github.com/borg-fleet/helm-charts/releases/download/sssd-0.1.0/sssd-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-22T08:14:04.835873322Z"
+generated: "2023-05-29T08:14:13.400378381Z"
