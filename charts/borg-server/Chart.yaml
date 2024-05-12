@@ -12,6 +12,6 @@ maintainers:
     email: philipp.hossner@posteo.de
     url: https://github.com/phihos
 type: application
-version: 0.1.15
+version: 0.1.16
 # renovate: image=ghcr.io/borg-fleet/borg
-appVersion: "2024-05-05"
+appVersion: "2024-05-12"
