@@ -1,9 +1,9 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:base"
+        "config:recommended"
     ],
-    "baseBranches": [
+    "baseBranchPatterns": [
         "main"
     ],
     "rebaseWhen": "conflicted",
@@ -16,14 +16,15 @@
     "automerge": true,
     "automergeType": "pr",
     "platformAutomerge": true,
-    "recreateClosed": true,
+    "recreateWhen": "always",
     "automergeStrategy": "merge-commit",
     "prHourlyLimit": 10,
     "bumpVersion": "patch",
-    "regexManagers": [
+    "customManagers": [
         {
-            "fileMatch": [
-                "(^|/)Chart\\.yaml$"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/(^|/)Chart\\.yaml$/"
             ],
             "matchStrings": [
                 "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
@@ -39,7 +40,7 @@
             "versioning": "regex:^(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)$"
         }
     ],
-    "allowedPostUpgradeCommands": [
+    "allowedCommands": [
         "./bump_chart_version.sh"
     ],
     "postUpgradeTasks": {
