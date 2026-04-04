@@ -1,0 +1,49 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended"
+    ],
+    "baseBranchPatterns": [
+        "main"
+    ],
+    "rebaseWhen": "conflicted",
+    "labels": [
+        "dependencies"
+    ],
+    "automerge": true,
+    "automergeType": "pr",
+    "platformAutomerge": true,
+    "recreateWhen": "always",
+    "automergeStrategy": "merge-commit",
+    "prHourlyLimit": 10,
+    "bumpVersion": "patch",
+    "customManagers": [
+        {
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/(^|/)Chart\\.yaml$/"
+            ],
+            "matchStrings": [
+                "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
+            ],
+            "datasourceTemplate": "docker"
+        }
+    ],
+    "packageRules": [
+        {
+            "matchDatasources": [
+                "docker"
+            ],
+            "versioning": "regex:^(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)$"
+        }
+    ],
+    "postUpgradeTasks": {
+        "commands": [
+            "./bump_chart_version.sh"
+        ],
+        "fileFilters": [
+            "**/*"
+        ],
+        "executionMode": "branch"
+    }
+}
