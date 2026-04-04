@@ -14,4 +14,4 @@ maintainers:
 type: application
 version: 0.1.23
 # renovate: image=ghcr.io/borg-fleet/borg
-appVersion: "2024-06-30"
+appVersion: "2026-04-03"

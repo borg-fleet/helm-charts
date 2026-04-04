@@ -2,7 +2,7 @@
 !!! Important !!!
 
 Your SSH host keys will regenerate on every deployment restart.
-This is bad if you rely on trust on first use. Please follow these steps to make the current host keys permananent:
+This is bad if you rely on trust on first use. Please follow these steps to make the current host keys permanent:
 
   1. Run "kubectl exec deployment/{{ include "borg-server.fullname" . }} -c borg-server -- bash -c 'more /etc/ssh/ssh_host* | cat'"
   2. Go to your values.yaml and for each of these files create a key config.sshd_config_mounts.<filename> with the value being the file contents.
