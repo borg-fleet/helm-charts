@@ -141,7 +141,7 @@ config:
     Port: 22
     UsePam: 'yes'
     PermitRootLogin: 'no'
-    PasswordAuthentication: 'yes'
+    PasswordAuthentication: 'no'
     ChallengeResponseAuthentication: 'no'
     KerberosAuthentication: 'no'
     GSSAPIAuthentication: 'no'
