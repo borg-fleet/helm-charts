@@ -13,6 +13,6 @@ maintainers:
     url: https://github.com/phihos
 kubeVersion: ">=1.22.0"
 type: application
-version: 0.1.29
+version: 0.1.30
 # renovate: image=ghcr.io/borg-fleet/borg
-appVersion: "2026-05-03"
+appVersion: "2026-05-10"
